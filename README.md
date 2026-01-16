@@ -6,10 +6,14 @@ This MCP server exposes the Plutocalc Designer REST API as MCP tools over stdio.
 
 Plutocalc Designer is an online engineering tool for sizing water and wastewater treatment systems. Engineers select a design model, fill in a calculation template, and run the computation to receive a completed template with design results. Learn more at https://www.plutocalc.com/designer.
 
-## Installation
+## Automatic installation
+
+Ask your model to install and run `plutocalcdesigner-mcp` from [MCP Registry](https://registry.modelcontextprotocol.io/) or [NPM](https://npmjs.com).
+
+## Manual installation
 
 ```bash
-npm install
+npm install plutocalcdesigner-mcp
 ```
 
 ## Usage
