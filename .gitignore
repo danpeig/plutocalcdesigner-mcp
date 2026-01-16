@@ -1,0 +1,7 @@
+node_modules/
+.mcpregistry_github_token
+.mcpregistry_registry_token
+.npm/_logs/
+.npm/_cacache/
+npm-debug.log*
+
