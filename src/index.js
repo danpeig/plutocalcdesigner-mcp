@@ -8,7 +8,7 @@ const API_BASE_URL = process.env.PLUTOCALC_API_BASE_URL?.replace(/\/$/, '') ?? '
 const createServer = () => {
   const server = new McpServer({
     name: 'plutocalcdesigner',
-    version: '1.0.0'
+    version: '1.2.0'
   });
 
   server.registerTool(
@@ -41,6 +41,32 @@ const createServer = () => {
       const text = await response.text();
       return {
         content: [{ type: 'text', text }]
+      };
+    }
+  );
+
+  server.registerTool(
+    'license_status',
+    {
+      description: 'Check license credits balance.',
+      inputSchema: {
+        licenseKey: z.string().describe('License key to check')
+      }
+    },
+    async ({ licenseKey }) => {
+      const response = await fetch(`${API_BASE_URL}/license/status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ license_key: licenseKey })
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`License status request failed (${response.status}): ${errorText}`);
+      }
+      const data = await response.json();
+      return {
+        content: [{ type: 'text', text: JSON.stringify(data, null, 2) }],
+        structuredContent: data
       };
     }
   );

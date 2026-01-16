@@ -28,6 +28,7 @@ npm start
 
 - `server_version` - Fetch server version string.
 - `server_status` - Fetch server status.
+- `license_status` - Check license credits balance.
 - `list_models` - List available models.
 - `get_model` - Fetch model name/version.
 - `get_model_information` - Fetch detailed model information.
