@@ -1,0 +1,21 @@
+{
+  "name": "plutocalcdesigner-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for the Plutocalc Designer REST API",
+  "main": "src/index.js",
+  "bin": {
+    "plutocalcdesigner-mcp": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --check src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "zod": "^4.3.5"
+  }
+}

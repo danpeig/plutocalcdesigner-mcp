@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.danpeig/plutocalcdesigner-mcp",
+  "description": "MCP server for Plutocalc Designer REST API. Plutocalc Designer is a software suit for water and wastewater treatment plant design. ",
+  "title": "Plutocalc Designer MCP",
+  "version": "1.0.0",
+  "websiteUrl": "https://plutocalc.com/designer/",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "plutocalcdesigner-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "PLUTOCALC_API_BASE_URL",
+          "description": "Override the Plutocalc Designer API base URL (default https://www.plutocalc.com/designer/server).",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}
