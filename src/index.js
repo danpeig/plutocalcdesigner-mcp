@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import * as z from 'zod/v4';
+import { z } from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
@@ -8,7 +8,7 @@ const API_BASE_URL = process.env.PLUTOCALC_API_BASE_URL?.replace(/\/$/, '') ?? '
 const createServer = () => {
   const server = new McpServer({
     name: 'plutocalcdesigner',
-    version: '1.2.0'
+    version: '1.3.0'
   });
 
   server.registerTool(
@@ -49,9 +49,9 @@ const createServer = () => {
     'license_status',
     {
       description: 'Check license credits balance.',
-      inputSchema: {
+      inputSchema: z.object({
         licenseKey: z.string().describe('License key to check')
-      }
+      })
     },
     async ({ licenseKey }) => {
       const response = await fetch(`${API_BASE_URL}/license/status`, {
@@ -83,8 +83,7 @@ const createServer = () => {
       }
       const data = await response.json();
       return {
-        content: [{ type: 'text', text: JSON.stringify(data, null, 2) }],
-        structuredContent: data
+        content: [{ type: 'text', text: JSON.stringify(data, null, 2) }]
       };
     }
   );
@@ -93,9 +92,9 @@ const createServer = () => {
     'get_model',
     {
       description: 'Get model name and version string.',
-      inputSchema: {
+      inputSchema: z.object({
         model: z.string().describe('Model identifier, e.g. mbrbodnh4')
-      }
+      })
     },
     async ({ model }) => {
       const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}`);
@@ -113,9 +112,9 @@ const createServer = () => {
     'get_model_information',
     {
       description: 'Get detailed model information.',
-      inputSchema: {
+      inputSchema: z.object({
         model: z.string().describe('Model identifier')
-      }
+      })
     },
     async ({ model }) => {
       const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/information`);
@@ -134,9 +133,9 @@ const createServer = () => {
     'get_model_template',
     {
       description: 'Get model calculation input template.',
-      inputSchema: {
+      inputSchema: z.object({
         model: z.string().describe('Model identifier')
-      }
+      })
     },
     async ({ model }) => {
       const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/template`);
@@ -155,9 +154,9 @@ const createServer = () => {
     'get_model_referencedb',
     {
       description: 'Get model reference database entries.',
-      inputSchema: {
+      inputSchema: z.object({
         model: z.string().describe('Model identifier')
-      }
+      })
     },
     async ({ model }) => {
       const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/referencedb`);
@@ -176,9 +175,9 @@ const createServer = () => {
     'get_model_unitslist',
     {
       description: 'Get model supported units list.',
-      inputSchema: {
+      inputSchema: z.object({
         model: z.string().describe('Model identifier')
-      }
+      })
     },
     async ({ model }) => {
       const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/unitslist`);
@@ -197,10 +196,10 @@ const createServer = () => {
     'compute_model',
     {
       description: 'Run a model calculation with a filled input template.',
-      inputSchema: {
+      inputSchema: z.object({
         model: z.string().describe('Model identifier'),
-        input: z.record(z.any()).describe('Filled template JSON to send to compute')
-      }
+        input: z.any().describe('Filled template JSON to send to compute')
+      })
     },
     async ({ model, input }) => {
       const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/compute`, {

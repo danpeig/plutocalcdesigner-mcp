@@ -7,14 +7,14 @@
     "source": "github"
   },
   "title": "Plutocalc Designer",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "websiteUrl": "https://plutocalc.com/designer/",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "plutocalcdesigner-mcp",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "transport": {
         "type": "stdio"
       },
