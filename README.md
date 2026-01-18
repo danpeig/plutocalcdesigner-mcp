@@ -57,20 +57,20 @@ If you need to configure manually, add this to your MCP client configuration:
 
 ### Available Models
 
-The server provides access to these wastewater treatment design models:
-- **cmasbod** - CMAS for BOD removal
-- **cmasbodnh4** - CMAS for BOD and NH4 removal
-- **cmasbodno3** - CMAS for BOD and NO3 removal
-- **mbrbodnh4** - MBR for BOD and NH4 removal
+The server provides access to, at least, these water and wastewater treatment system design models:
+- **cmasbod** - Complete Mix Activated Sludge for BOD removal
+- **cmasbodnh4** - Complete Mix Activated Sludge (CMAS) for BOD and NH4 removal
+- **cmasbodno3** - Complete Mix Activated Sludge for BOD and NO3 removal
+- **mbrbodnh4** - Membrane Bioreactor (MBR) for BOD and NH4 removal
 - **mbrbodno3** - MBR for BOD and NO3 removal
-- **stripping** - Ammonia stripping
-- **rocip** - Reverse osmosis for CIP
+- **stripping** - Gas and VOC stripping tower
+- **rocip** - Reverse Osmosis CIP system (Clean-in-place)
 
 ### What You Can Do
 
 Once configured, ask your AI assistant to:
 - **List models**: "What treatment models are available?"
-- **Get information**: "Tell me about the CMAS BOD removal model"
+- **Get information**: "Tell me about the CMAS BOD removal mode. Where is the RO CIP design manual?"
 - **Get templates**: "Show me the input template for MBR design"
 - **Check license requirements**: "Do I need a license to use these models?"
 - **Access documentation**: "Open the manual page for the stripping model"
