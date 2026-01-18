@@ -3,7 +3,7 @@
 MCP server for the Plutocalc Designer REST API, providing access to water and wastewater treatment system design tools through the Model Context Protocol.
 
 **Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`  
-**Version:** 2.0.0  
+**Version:** 2.1.0  
 **Server URL:** https://www.plutocalc.com/designer/mcp
 
 ## About Plutocalc Designer
@@ -267,7 +267,7 @@ Each tool call:
 This server is published in the **official MCP Registry**:
 
 - **Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`
-- **Version:** 2.0.0
+- **Version:** 2.1.0
 - **Browse:** https://registry.modelcontextprotocol.io
 
 ### For Publishers: Updating the Registry
