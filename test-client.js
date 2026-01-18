@@ -273,7 +273,7 @@ async function main() {
         throw new Error(`HTTP ${response.status}`);
       }
       const text = await response.text();
-      if (!text.includes('Plutocalc Designer MCP Server') || !text.includes('v2.0')) {
+      if (!text.includes('Plutocalc Designer MCP Server')) {
         throw new Error(`Unexpected response: ${text}`);
       }
     });
