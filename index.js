@@ -2,20 +2,39 @@
 /* --------------------------------------------------------------------------- */
 /* Plutocalc Designer MCP Server
 /* By Daniel BP
-/* Version 2.0.0
+/* Version 2.1.0
 /* --------------------------------------------------------------------------- */
 
 //Load modules
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const app = express();
 
 //Server configuration
-const APP_VERSION = '2.0.0';
+const APP_VERSION = '2.1.0';
 const API_BASE_URL = process.env.PLUTOCALC_API_BASE_URL?.replace(/\/$/, '') ?? 'https://www.plutocalc.com/designer/server';
 const PORT = process.env.PORT || 3003;
 const BASE_PATH = process.env.BASE_PATH || '/designer/mcp';
 const APP_NAME = "Plutocalc Designer MCP Server";
+
+//Rate limiting configuration
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 450, // limit each IP to 450 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const toolsLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // stricter limit for compute-intensive tool calls
+  message: 'Too many tool requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 //Tools metadata
 const tools = [
@@ -286,8 +305,10 @@ For questions about licensing, contact: contact@plutocalc.com`;
 //-------------------------------------------------------------------------------------------------------
 //Express middleware
 
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(generalLimiter);
 app.use(function (req, res, next) {
   req.url = req.url.replace(BASE_PATH, "");
   next();
@@ -347,6 +368,8 @@ app.post('/tools/:toolName', async function(req, res) {
     });
   }
 });
+
+app.use('/tools', toolsLimiter);
 
 //-------------------------------------------------------------------------------------------------------
 //Express error handling and initialization
