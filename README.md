@@ -31,7 +31,7 @@ The easiest way to use Plutocalc Designer with your AI assistant is through the 
 
 3. **Start using it!** Ask your AI assistant:
    - "List available wastewater treatment models"
-   - "Get the template for the CMAS BOD removal model"
+   - "Get the template for the     stripping tower"
    - "Help me design a biological treatment system"
 
 ### Manual Configuration
@@ -70,7 +70,7 @@ The server provides access to, at least, these water and wastewater treatment sy
 
 Once configured, ask your AI assistant to:
 - **List models**: "What treatment models are available?"
-- **Get information**: "Tell me about the CMAS BOD removal mode. Where is the RO CIP design manual?"
+- **Get information**: "Tell me about the CMAS BOD removal mode."
 - **Get templates**: "Show me the input template for MBR design"
 - **Check license requirements**: "Do I need a license to use these models?"
 - **Access documentation**: "Open the manual page for the stripping model"
