@@ -5,3 +5,6 @@ node_modules/
 .npm/_cacache/
 npm-debug.log*
 
+
+# MCP Registry Ed25519 keypair
+key.pem

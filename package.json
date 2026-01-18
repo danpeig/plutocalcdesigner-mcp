@@ -1,22 +1,23 @@
 {
   "name": "plutocalcdesigner-mcp",
-  "version": "1.3.0",
-  "mcpName": "io.github.danpeig/plutocalcdesigner-mcp",
-  "description": "MCP server for the Plutocalc Designer REST API",
-  "main": "src/index.js",
+  "version": "2.0.0",
+  "mcpName": "com.plutocalc/plutocalcdesigner-mcp",
+  "description": "MCP web service for the Plutocalc Designer REST API",
+  "main": "index.js",
   "bin": {
-    "plutocalcdesigner-mcp": "src/index.js"
+    "plutocalcdesigner-mcp": "index.js"
   },
   "scripts": {
-    "start": "node src/index.js",
-    "test": "node --check src/index.js"
+    "start": "node index.js",
+    "test": "node --check index.js",
+    "test:local": "node test-client.js local",
+    "test:remote": "node test-client.js remote"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["mcp", "plutocalc", "designer", "wastewater", "treatment"],
+  "author": "Daniel BP",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.25.2",
-    "zod": "^4.3.5"
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
   }
 }
