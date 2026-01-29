@@ -50,14 +50,15 @@ If you need to configure manually, add this to your MCP client configuration:
 }
 ```
 
-### (Alternative) OpenAPI specifications
-
-Another way to connect AI models to Plutocalc Designer is use the API directly. In this case, the model can retrieve instructions from the OpenAPI json specifications available at https://www.plutocalc.com/designer/server/openapi.json
-
 **For other MCP clients:**
 - **Server URL:** `https://www.plutocalc.com/designer/mcp`
 - **Transport Type:** HTTP
 - **Name:** plutocalcdesigner (or any name you prefer)
+
+
+### (Alternative) OpenAPI specifications
+
+Another way to connect AI models to Plutocalc Designer is use the API directly. In this case, the model can retrieve instructions from the OpenAPI json specifications available at https://www.plutocalc.com/designer/server/openapi.json
 
 ### Models
 
