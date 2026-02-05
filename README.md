@@ -4,7 +4,8 @@ MCP server for the Plutocalc Designer REST API, providing access to water and wa
 
 **Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`<BR>
 **Version:** 2.5.0<BR>
-**Server URL:** https://www.plutocalc.com/designer/mcp<BR>
+**MCP server URL:** https://www.plutocalc.com/designer/mcp<BR>
+**OpenAPI specs:** https://www.plutocalc.com/designer/server/openapi.json<BR>
 
 ## About Plutocalc Designer
 
