@@ -2,7 +2,7 @@
 /* --------------------------------------------------------------------------- */
 /* Plutocalc Designer MCP Server
 /* By Daniel BP
-/* Version 2.1.0
+/* Version 2.5.0
 /* --------------------------------------------------------------------------- */
 
 //Load modules
@@ -13,7 +13,7 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 
 //Server configuration
-const APP_VERSION = '2.1.0';
+const APP_VERSION = '2.5.0';
 const API_BASE_URL = process.env.PLUTOCALC_API_BASE_URL?.replace(/\/$/, '') ?? 'https://www.plutocalc.com/designer/server';
 const PORT = process.env.PORT || 3003;
 const BASE_PATH = process.env.BASE_PATH || '/designer/mcp';
@@ -62,6 +62,11 @@ const tools = [
   {
     name: 'list_models',
     description: 'List available Plutocalc Designer models.',
+    inputSchema: { type: 'object', properties: {}, required: [] }
+  },
+  {
+    name: 'list_models_info',
+    description: 'List available models with detailed information including manuals (recommended starting point).',
     inputSchema: { type: 'object', properties: {}, required: [] }
   },
   {
@@ -132,6 +137,30 @@ const tools = [
     }
   },
   {
+    name: 'json_to_markdown',
+    description: 'Convert model JSON template to readable Markdown format.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        model: { type: 'string', description: 'Model identifier' },
+        input: { type: 'object', description: 'JSON template to convert' }
+      },
+      required: ['model', 'input']
+    }
+  },
+  {
+    name: 'markdown_to_json',
+    description: 'Convert Markdown format back to JSON template.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        model: { type: 'string', description: 'Model identifier' },
+        input: { type: 'string', description: 'Markdown text to convert' }
+      },
+      required: ['model', 'input']
+    }
+  },
+  {
     name: 'model_manual',
     description: 'Get the URL to the model help/manual page.',
     inputSchema: {
@@ -190,6 +219,17 @@ const toolHandlers = {
     const response = await fetch(`${API_BASE_URL}/listmodels`);
     if (!response.ok) {
       throw new Error(`List models request failed (${response.status})`);
+    }
+    const data = await response.json();
+    return {
+      content: [{ type: 'text', text: JSON.stringify(data, null, 2) }]
+    };
+  },
+
+  async list_models_info() {
+    const response = await fetch(`${API_BASE_URL}/listmodelsinfo`);
+    if (!response.ok) {
+      throw new Error(`List models info request failed (${response.status})`);
     }
     const data = await response.json();
     return {
@@ -260,6 +300,40 @@ const toolHandlers = {
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Compute request failed (${response.status}): ${errorText}`);
+    }
+    const data = await response.json();
+    return {
+      content: [{ type: 'text', text: JSON.stringify(data, null, 2) }]
+    };
+  },
+
+  async json_to_markdown({ model, input }) {
+    const body = { ...input, client: 'MCP' };
+    const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/jsontomarkdown`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`JSON to Markdown request failed (${response.status}): ${errorText}`);
+    }
+    const text = await response.text();
+    return {
+      content: [{ type: 'text', text }]
+    };
+  },
+
+  async markdown_to_json({ model, input }) {
+    const body = { markdown: input, client: 'MCP' };
+    const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/markdowntojson`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Markdown to JSON request failed (${response.status}): ${errorText}`);
     }
     const data = await response.json();
     return {

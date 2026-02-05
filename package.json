@@ -1,6 +1,6 @@
 {
   "name": "plutocalcdesigner-mcp",
-  "version": "2.1.0",
+  "version": "2.5.0",
   "mcpName": "com.plutocalc/plutocalcdesigner-mcp",
   "description": "MCP web service for the Plutocalc Designer REST API",
   "main": "index.js",

@@ -2,8 +2,8 @@
 
 MCP server for the Plutocalc Designer REST API, providing access to water and wastewater treatment system design tools through the Model Context Protocol.
 
-**Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`  
-**Version:** 2.1.0  
+**Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`
+**Version:** 2.5.0
 **Server URL:** https://www.plutocalc.com/designer/mcp
 
 ## About Plutocalc Designer
@@ -166,14 +166,17 @@ Executes a specific tool and returns the result.
 2. **server_status** - Get Plutocalc Designer server status
 3. **license_status** - Check license credits balance (requires `licenseKey`)
 4. **list_models** - List available calculation models
-5. **get_model** - Get model name and version (requires `model`)
-6. **get_model_information** - Get detailed model information (requires `model`)
-7. **get_model_template** - Get calculation input template (requires `model`)
-8. **get_model_referencedb** - Get reference database entries (requires `model`)
-9. **get_model_unitslist** - Get supported units list (requires `model`)
-10. **compute_model** - Run model calculation (requires `model` and `input`)
-11. **model_manual** - Get URL to the model help/manual page (requires `model`)
-12. **license_help** - Get information about license key requirements
+5. **list_models_info** - List available models with detailed information including manuals (recommended starting point)
+6. **get_model** - Get model name and version (requires `model`)
+7. **get_model_information** - Get detailed model information (requires `model`)
+8. **get_model_template** - Get calculation input template (requires `model`)
+9. **get_model_referencedb** - Get reference database entries (requires `model`)
+10. **get_model_unitslist** - Get supported units list (requires `model`)
+11. **compute_model** - Run model calculation (requires `model` and `input`)
+12. **json_to_markdown** - Convert model JSON template to readable Markdown format (requires `model` and `input`)
+13. **markdown_to_json** - Convert Markdown format back to JSON template (requires `model` and `input`)
+14. **model_manual** - Get URL to the model help/manual page (requires `model`)
+15. **license_help** - Get information about license key requirements
 
 ## Example Usage
 
@@ -272,7 +275,7 @@ Each tool call:
 This server is published in the **official MCP Registry**:
 
 - **Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`
-- **Version:** 2.1.0
+- **Version:** 2.5.0
 - **Browse:** https://registry.modelcontextprotocol.io
 
 ### For Publishers: Updating the Registry
