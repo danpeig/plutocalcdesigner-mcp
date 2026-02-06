@@ -2,7 +2,7 @@
 /* --------------------------------------------------------------------------- */
 /* Plutocalc Designer MCP Server
 /* By Daniel BP
-/* Version 2.5.0
+/* Version 2.5.1
 /* --------------------------------------------------------------------------- */
 
 //Load modules
@@ -13,7 +13,7 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 
 //Server configuration
-const APP_VERSION = '2.5.0';
+const APP_VERSION = '2.5.1';
 const API_BASE_URL = process.env.PLUTOCALC_API_BASE_URL?.replace(/\/$/, '') ?? 'https://www.plutocalc.com/designer/server';
 const PORT = process.env.PORT || 3003;
 const BASE_PATH = process.env.BASE_PATH || '/designer/mcp';
@@ -308,11 +308,11 @@ const toolHandlers = {
   },
 
   async json_to_markdown({ model, input }) {
-    const body = { ...input, client: 'MCP' };
+    // Note: jsontomarkdown endpoint expects pure ModelTemplate without client field
     const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/jsontomarkdown`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify(input)
     });
     if (!response.ok) {
       const errorText = await response.text();
@@ -325,7 +325,8 @@ const toolHandlers = {
   },
 
   async markdown_to_json({ model, input }) {
-    const body = { markdown: input, client: 'MCP' };
+    // Note: markdowntojson endpoint expects 'text' field, not 'markdown'
+    const body = { text: input };
     const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(model)}/markdowntojson`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

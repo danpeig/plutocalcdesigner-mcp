@@ -85,7 +85,7 @@ async function runTests() {
   // Test 4: list_models
   console.log('\nTesting Model Discovery:');
   console.log('-'.repeat(70));
-  
+
   let models = [];
   await test('list_models', async () => {
     const result = await callTool('list_models');
@@ -99,6 +99,26 @@ async function runTests() {
     // Extract model names from array of [id, description] pairs
     models = data.map(item => item[0]);
     console.log(`    Found ${models.length} models`);
+  });
+
+  // Test 5: list_models_info
+  await test('list_models_info', async () => {
+    const result = await callTool('list_models_info');
+    if (!result.content || !result.content[0]) {
+      throw new Error('Invalid response format');
+    }
+    const data = JSON.parse(result.content[0].text);
+    if (!Array.isArray(data)) {
+      throw new Error('Response is not an array');
+    }
+    // Verify each model has name, description, and manual page
+    if (data.length > 0) {
+      const firstModel = data[0];
+      if (!firstModel.name && !firstModel.modelName) {
+        throw new Error('Model info missing name field');
+      }
+    }
+    console.log(`    Found ${data.length} models with full info`);
   });
   
   if (models.length === 0) {
@@ -114,15 +134,15 @@ async function runTests() {
   for (const model of testModels) {
     console.log(`\n  Model: ${model}`);
     
-    // Test 5: get_model
+    // Test 6: get_model
     await test(`  get_model(${model})`, async () => {
       const result = await callTool('get_model', { model });
       if (!result.content || !result.content[0]) {
         throw new Error('Invalid response format');
       }
     });
-    
-    // Test 6: get_model_information
+
+    // Test 7: get_model_information
     await test(`  get_model_information(${model})`, async () => {
       const result = await callTool('get_model_information', { model });
       if (!result.content || !result.content[0]) {
@@ -133,8 +153,8 @@ async function runTests() {
         throw new Error('Model information missing modelName field');
       }
     });
-    
-    // Test 7: model_manual
+
+    // Test 8: model_manual
     await test(`  model_manual(${model})`, async () => {
       const result = await callTool('model_manual', { model });
       if (!result.content || !result.content[0]) {
@@ -145,8 +165,8 @@ async function runTests() {
         throw new Error('Manual URL not found in response');
       }
     });
-    
-    // Test 8: get_model_template
+
+    // Test 9: get_model_template
     let template = null;
     await test(`  get_model_template(${model})`, async () => {
       const result = await callTool('get_model_template', { model });
@@ -158,24 +178,66 @@ async function runTests() {
         throw new Error('Template is empty');
       }
     });
-    
-    // Test 9: get_model_referencedb
+
+    // Test 10: json_to_markdown
+    let markdown = null;
+    await test(`  json_to_markdown(${model})`, async () => {
+      if (!template) {
+        throw new Error('No template available from previous test');
+      }
+
+      const result = await callTool('json_to_markdown', {
+        model,
+        input: template
+      });
+      if (!result.content || !result.content[0]) {
+        throw new Error('Invalid response format');
+      }
+      markdown = result.content[0].text;
+      if (!markdown || markdown.length === 0) {
+        throw new Error('Markdown output is empty');
+      }
+      if (!markdown.includes('#')) {
+        throw new Error('Markdown output does not contain markdown formatting');
+      }
+    });
+
+    // Test 11: markdown_to_json
+    await test(`  markdown_to_json(${model})`, async () => {
+      if (!markdown) {
+        throw new Error('No markdown available from previous test');
+      }
+
+      const result = await callTool('markdown_to_json', {
+        model,
+        input: markdown
+      });
+      if (!result.content || !result.content[0]) {
+        throw new Error('Invalid response format');
+      }
+      const convertedJson = JSON.parse(result.content[0].text);
+      if (!convertedJson) {
+        throw new Error('Converted JSON is empty');
+      }
+    });
+
+    // Test 12: get_model_referencedb
     await test(`  get_model_referencedb(${model})`, async () => {
       const result = await callTool('get_model_referencedb', { model });
       if (!result.content || !result.content[0]) {
         throw new Error('Invalid response format');
       }
     });
-    
-    // Test 10: get_model_unitslist
+
+    // Test 13: get_model_unitslist
     await test(`  get_model_unitslist(${model})`, async () => {
       const result = await callTool('get_model_unitslist', { model });
       if (!result.content || !result.content[0]) {
         throw new Error('Invalid response format');
       }
     });
-    
-    // Test 11: compute_model (will fail without license, but tests the endpoint)
+
+    // Test 14: compute_model (will fail without license, but tests the endpoint)
     await test(`  compute_model(${model})`, async () => {
       if (!template) {
         throw new Error('No template available from previous test');

@@ -3,7 +3,7 @@
 MCP server for the Plutocalc Designer REST API, providing access to water and wastewater treatment system design tools through the Model Context Protocol.
 
 **Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`<BR>
-**Version:** 2.5.0<BR>
+**Version:** 2.5.1<BR>
 **MCP server URL:** https://www.plutocalc.com/designer/mcp<BR>
 **OpenAPI specs:** https://www.plutocalc.com/designer/server/openapi.json<BR>
 
@@ -76,8 +76,9 @@ The server provides access to, at least, these water and wastewater treatment sy
 
 Once configured, ask your AI assistant to:
 - **List models**: "What treatment models are available?"
-- **Get information**: "Tell me about the CMAS BOD removal mode."
+- **Get information**: "Tell me about the CMAS BOD removal model"
 - **Get templates**: "Show me the input template for MBR design"
+- **Convert formats**: "Convert this JSON template to Markdown format" or "Convert this Markdown back to JSON"
 - **Check license requirements**: "Do I need a license to use these models?"
 - **Access documentation**: "Open the manual page for the stripping model"
 
@@ -188,6 +189,13 @@ curl -X POST http://localhost:3003/designer/mcp/tools/list_models \
   -d '{}'
 ```
 
+### List Models with Full Information
+```bash
+curl -X POST http://localhost:3003/designer/mcp/tools/list_models_info \
+  -H "Content-Type: application/json" \
+  -d '{}'
+```
+
 ### Get Model Template
 ```bash
 curl -X POST http://localhost:3003/designer/mcp/tools/get_model_template \
@@ -207,6 +215,31 @@ curl -X POST http://localhost:3003/designer/mcp/tools/model_manual \
 curl -X POST http://localhost:3003/designer/mcp/tools/license_help \
   -H "Content-Type: application/json" \
   -d '{}'
+```
+
+### Convert JSON to Markdown
+```bash
+curl -X POST http://localhost:3003/designer/mcp/tools/json_to_markdown \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "cmasbod",
+    "input": {
+      "license_key": "your-license-key",
+      "parameters": {
+        // ... template JSON
+      }
+    }
+  }'
+```
+
+### Convert Markdown to JSON
+```bash
+curl -X POST http://localhost:3003/designer/mcp/tools/markdown_to_json \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "cmasbod",
+    "input": "# Model Template\n\n..."
+  }'
 ```
 
 ### Run Calculation
@@ -276,7 +309,7 @@ Each tool call:
 This server is published in the **official MCP Registry**:
 
 - **Registry Name:** `io.github.danpeig/plutocalcdesigner-mcp`
-- **Version:** 2.5.0
+- **Version:** 2.5.1
 - **Browse:** https://registry.modelcontextprotocol.io
 
 ### For Publishers: Updating the Registry
