@@ -13,7 +13,7 @@ Plutocalc Designer is an online engineering tool for sizing water and wastewater
 
 ---
 
-## For End Users: Using Plutocalc Designer in your AI application
+## Using Plutocalc Designer from your AI platform
 
 ### Quick Start
 
@@ -56,9 +56,9 @@ If you need to configure manually, add this to your MCP client configuration:
 - **Transport Type:** HTTP
 - **Name:** plutocalcdesigner (or any name you prefer)
 
-### (Alternative) OpenAPI specifications
+### (Alternative) access via OpenAPI
 
-Another way to connect AI models to Plutocalc Designer is use the API directly. In this case, the model can retrieve instructions from the OpenAPI json specifications available at:<BR> https://www.plutocalc.com/designer/server/openapi.json
+Another way to connect AI models to Plutocalc Designer is use the API directly. In this case, the model can retrieve instructions from the OpenAPI json specifications available at https://www.plutocalc.com/designer/server/openapi.json 
 
 ## Available tools
 
@@ -88,7 +88,7 @@ Another way to connect AI models to Plutocalc Designer is use the API directly. 
 
 ---
 
-## For Developers: Installation & Testing
+## Developers: Installation & testing
 
 ### Local Development Setup
 
