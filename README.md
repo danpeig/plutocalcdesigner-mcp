@@ -15,7 +15,7 @@ Plutocalc Designer is an online engineering tool for sizing water and wastewater
 
 ## Using Plutocalc Designer from your AI platform
 
-There are three ways of connecting to Plutocalc Designer to AI applications:
+There are three ways of connecting Plutocalc Designer to AI applications:
 - Connecting via the MCP server
 - Connecting directly to the API using OpenAPI specs
 - Hosting the MCP server locally
