@@ -15,7 +15,12 @@ Plutocalc Designer is an online engineering tool for sizing water and wastewater
 
 ## Using Plutocalc Designer from your AI platform
 
-### Quick Start
+There are three ways of connecting to Plutocalc Designer to AI applications:
+- Connecting via the MCP server
+- Connecting directly to the API using OpenAPI specs
+- Hosting the MCP server locally
+
+### Connecting via the MCP server (automatic)
 
 The easiest way to use Plutocalc Designer with your AI assistant is through the **MCP Registry**:
 
@@ -35,7 +40,7 @@ The easiest way to use Plutocalc Designer with your AI assistant is through the 
    - "Get the template for the stripping tower"
    - "Help me design a biological treatment system"
 
-### Manual Configuration
+### Connecting via the MCP server (manual)
 
 If you need to configure manually, add this to your MCP client configuration:
 
@@ -56,9 +61,28 @@ If you need to configure manually, add this to your MCP client configuration:
 - **Transport Type:** HTTP
 - **Name:** plutocalcdesigner (or any name you prefer)
 
-### (Alternative) access via OpenAPI
+### Connecting directly to the API using the OpenAPI specifications
 
-Another way to connect AI models to Plutocalc Designer is use the API directly. In this case, the model can retrieve instructions from the OpenAPI json specifications available at https://www.plutocalc.com/designer/server/openapi.json 
+Another way to connect AI models to Plutocalc Designer is use the API directly. In this case, the model can retrieve instructions from the OpenAPI json specifications available at https://www.plutocalc.com/designer/server/openapi.json
+
+### Hosting the MCP server locally 
+
+This method hosts the MCP server only, not the Plutocalc Designer models. The local server requires internet connectivity to connect to the Plutocalc Designer server and perform the calculations.
+
+```bash
+# Clone the repository
+git clone https://github.com/danpeig/plutocalcdesigner-mcp.git
+cd plutocalcdesigner-mcp
+
+# Install dependencies
+npm install
+
+# Start the server
+npm start
+```
+The server will start on port 3003 by default (configurable via `PORT` environment variable).
+
+If you need to check if the server is working, see [TEST_CLIENT_README.md](TEST_CLIENT_README.md) for detailed instructions.
 
 ## Available tools
 
@@ -85,27 +109,3 @@ Another way to connect AI models to Plutocalc Designer is use the API directly. 
 - **Website**: https://www.plutocalc.com
 - **Repository**: https://github.com/danpeig/plutocalcdesigner-mcp
 - **MCP Registry**: https://registry.modelcontextprotocol.io (search for "plutocalcdesigner")
-
----
-
-## Developers: Installation & testing
-
-### Local Development Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/danpeig/plutocalcdesigner-mcp.git
-cd plutocalcdesigner-mcp
-
-# Install dependencies
-npm install
-
-# Start the server
-npm start
-```
-
-The server will start on port 3003 by default (configurable via `PORT` environment variable).
-
-### Testing
-
-See [TEST_CLIENT_README.md](TEST_CLIENT_README.md) for detailed test information.
