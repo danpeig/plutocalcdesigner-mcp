@@ -16,9 +16,9 @@ Plutocalc Designer is an online engineering tool for sizing water and wastewater
 ## Using Plutocalc Designer from your AI platform
 
 There are three ways of connecting Plutocalc Designer to AI applications:
-- Connecting via the MCP server
-- Connecting directly to the API using OpenAPI specs
-- Hosting the MCP server locally
+- Connecting via the MCP server (recommended)
+- Connecting directly to the API using OpenAPI specs (alternative)
+- Hosting your own instance of the MCP server (for developers)
 
 ### Connecting via the MCP server (automatic)
 
@@ -65,9 +65,11 @@ If you need to configure manually, add this to your MCP client configuration:
 
 Another way to connect AI models to Plutocalc Designer is use the API directly. In this case, the model can retrieve instructions from the OpenAPI json specifications available at https://www.plutocalc.com/designer/server/openapi.json
 
-### Hosting the MCP server locally 
+### Hosting the MCP server
 
-This method hosts the MCP server only, not the Plutocalc Designer models. The local server requires internet connectivity to connect to the Plutocalc Designer server and perform the calculations.
+This method hosts the MCP server only, not the Plutocalc Designer. The local server requires internet connectivity to connect to the Plutocalc Designer API. 
+
+Use this method if you are facing connectivity issues with Plutocalc Designer MCP server or for development purposes.
 
 ```bash
 # Clone the repository
